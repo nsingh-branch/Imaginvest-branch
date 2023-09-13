@@ -39,6 +39,10 @@ jobs:
             --header 'x-readme-version: v5.5.1' \
             --data "$payload"
 
+        # Escape newlines for Slack payload
+        release_body_escaped=$(echo -n "$release_body" | sed ':a;N;$!ba;s/\n/\\n/g')
+        echo "release_body_escaped=$release_body_escaped" >> "$GITHUB_OUTPUT"
+
     - name: Announce New Release in Slack
       uses: slackapi/slack-github-action@v1.24.0
       with:
@@ -62,7 +66,7 @@ jobs:
                         "type": "section",
                         "text": {
                             "type": "mrkdwn",
-                            "text": ":star: *What's New*:\n\n${{ github.event.release.body }}"
+                            "text": ":star: *What's New*:\n\n${{ steps.update.outputs.release_body_escaped }}"
                         }
                     },
                     {
