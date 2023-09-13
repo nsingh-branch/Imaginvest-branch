@@ -1,4 +1,4 @@
-name: Update Changelog on Readme.com
+name: Update Version History on Readme
 
 on:
   release:
