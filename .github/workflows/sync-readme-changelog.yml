@@ -40,7 +40,7 @@ jobs:
             --data "$payload"
 
         # Escape newlines for Slack payload
-        release_body_escaped=$(echo -n "$release_body" | jq -Rs .)
+        release_body_escaped=$(echo -n "$release_body" | jq -Rs . | jq -r .)
         echo "release_body_escaped=$release_body_escaped" >> "$GITHUB_OUTPUT"
 
     - name: Announce New Release in Slack
